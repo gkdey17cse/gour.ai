@@ -1,0 +1,19 @@
+# Python Environment & Cache
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environment Variables & Secrets
+.env
+*.env
+
+# Data Files (Keep structure, exclude local source binaries if sensitive)
+data/*
+!data/.gitkeep
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
