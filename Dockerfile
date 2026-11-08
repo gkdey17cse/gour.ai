@@ -16,11 +16,15 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
+# Pre-download the embedding model during the build phase
+# This prevents Render's 60-second port timeout during startup
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+
 # Copy backend application code
 COPY . .
 
-# Expose server port
+# Expose fallback port
 EXPOSE 8000
 
-# Start command for Render/Railway
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start command (using shell form so Render can inject its dynamic $PORT)
+CMD uvicorn src.main:app --host 0.0.0.0 --port ${PORT:-8000}
