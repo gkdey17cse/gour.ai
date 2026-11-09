@@ -22,4 +22,4 @@ def test_chat(prompt: str):
 
 if __name__ == "__main__":
     test_health()
-    test_chat("What is Gour's GATE rank and achievements?")
+    test_chat("What is Gour's GATE rank and NET rank and achievements?")
